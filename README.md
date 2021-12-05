@@ -1,5 +1,5 @@
 # Homeworld
-Household management application
+### Household management application
 <p>
 This an app I've been using to experiment and develop skills. It's a fancy to-do app with an additional rewards tracking layer for completed tasks. The idea is to gameify household responsibilities. Sure, you could just use star stickers on a physical chart, but kids like tapping screens now, right?
 </p>
