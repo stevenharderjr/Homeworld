@@ -11,7 +11,7 @@ class MemberDashboard extends React.Component {
     this.hideNav = this.hideNav.bind(this);
 
     this.state = {
-      nav: false
+      nav: false,
     };
 
     // this.handleClick.bind(this);
@@ -19,14 +19,14 @@ class MemberDashboard extends React.Component {
 
   showNav() {
     this.setState({
-      nav: true
+      nav: true,
     });
   }
 
   hideNav() {
     this.setState({
-      nav: false
-    })
+      nav: false,
+    });
   }
 
   // returnToMainDashboard() {
@@ -39,22 +39,38 @@ class MemberDashboard extends React.Component {
   }
 
   render() {
-    const { household, member, workload, onUpdate, onDelete, goHome } = this.props;
+    const { household, member, workload, onUpdate, onDelete, goHome } =
+      this.props;
     const taskNames = this.props.member.assigned.slice();
-    const tasks = taskNames.map(name => {
+    const tasks = taskNames.map((name) => {
       const index = this.props.workload.nameLookup[name];
       return this.props.workload.tasks[index];
     });
 
-    let key = 0;
-
     return (
-      <div id='dashboard'>
-        <div className='navTitleBar' title='Return to household dashboard'  onMouseEnter={this.showNav} onMouseLeave={this.hideNav} onClick={goHome}>
-          <h1>{this.state.nav ? '< Dashboard' : `${this.props.member.name}'s Tasks`}</h1>
+      <div id="dashboard">
+        <div
+          className="navTitleBar"
+          title="Return to household dashboard"
+          onMouseEnter={this.showNav}
+          onMouseLeave={this.hideNav}
+          onClick={goHome}
+        >
+          <h1>
+            {this.state.nav
+              ? '< Dashboard'
+              : `${this.props.member.name}'s Tasks`}
+          </h1>
         </div>
-        <div className='tasks'>
-          <TaskList tasks={tasks} member={member} household={household} workload={workload} onUpdate={onUpdate} onDelete={onDelete} />
+        <div className="tasks">
+          <TaskList
+            tasks={tasks}
+            member={member}
+            household={household}
+            workload={workload}
+            onUpdate={onUpdate}
+            onDelete={onDelete}
+          />
         </div>
       </div>
     );

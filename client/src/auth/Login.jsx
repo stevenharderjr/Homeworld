@@ -1,9 +1,8 @@
 import React, { PureComponent } from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 // import LiveInput from '../components/shared/LiveInput.jsx';
 import ValidatedInput from '../components/shared/ValidatedInput.jsx';
 import Button from '../components/shared/Button.jsx';
-import validate from '../helpers/formValidation.js';
 import axios from 'axios';
 
 class Login extends PureComponent {
@@ -15,7 +14,7 @@ class Login extends PureComponent {
 
     this.state = {
       username: '',
-      password: ''
+      password: '',
     };
   }
 
@@ -26,12 +25,15 @@ class Login extends PureComponent {
   handleSubmit() {
     const { username, password } = this.state;
     if (username && password) {
-      console.log(`Submitting username (${username}) and password (${password})`);
-      axios.post('/login', this.state)
-        .then(response => {
+      console.log(
+        `Submitting username (${username}) and password (${password})`
+      );
+      axios
+        .post('/login', this.state)
+        .then((response) => {
           console.log('Response from server:', response);
         })
-        .catch(err => {
+        .catch((err) => {
           console.log('Unable to authenticate:', err);
         });
       // this.props.updateSession({ username, password });
@@ -41,15 +43,32 @@ class Login extends PureComponent {
   render() {
     const { handleUpdate, handleSubmit } = this;
     return (
-      <div id='Login' className='loginForm component'>
+      <div id="Login" className="loginForm component">
         <h2>Homeworld Login</h2>
-        <ValidatedInput key='1' name='username' auto='username' onUpdate={handleUpdate} onSubmit={handleSubmit} hint='Username' focus={true} />
-        <ValidatedInput key='2' name='password' auto='current-password' onUpdate={handleUpdate} onSubmit={handleSubmit} hint='Password' />
-        <Button label='Submit' onClick={handleSubmit} />
-        <Link className='linkText' to='/registration'>New to Homeworld? Register here!</Link>
+        <ValidatedInput
+          key="1"
+          name="username"
+          auto="username"
+          onUpdate={handleUpdate}
+          onSubmit={handleSubmit}
+          hint="Username"
+          focus={true}
+        />
+        <ValidatedInput
+          key="2"
+          name="password"
+          auto="current-password"
+          onUpdate={handleUpdate}
+          onSubmit={handleSubmit}
+          hint="Password"
+        />
+        <Button label="Submit" onClick={handleSubmit} />
+        <Link className="linkText" to="/registration">
+          New to Homeworld? Register here!
+        </Link>
       </div>
     );
   }
-};
+}
 
 export default Login;

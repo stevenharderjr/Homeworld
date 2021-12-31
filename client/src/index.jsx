@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Homeworld from './app/Homeworld.jsx';
-import axios from 'axios';
+// import axios from 'axios';
 import './styles/style.css';
 
 let AppContainer = document.createElement('div');

@@ -13,7 +13,7 @@ class AddMember extends React.Component {
 
     this.state = {
       form: false,
-      inputValue: ''
+      inputValue: '',
     };
   }
 
@@ -24,7 +24,7 @@ class AddMember extends React.Component {
 
   handleInputChange(e) {
     this.setState({
-      inputValue: e.target.value
+      inputValue: e.target.value,
     });
   }
 
@@ -49,19 +49,44 @@ class AddMember extends React.Component {
   }
 
   render() {
-    const { toggleForm, handleKeyPress, handleInputChange, userInput } = this;
+    const { toggleForm, handleKeyPress, handleInputChange } = this;
 
     return this.state.form ? (
-      <div className='component addMemberForm' id='addMemberComponent' title='Enter new household member' onClick={ toggleForm }>
+      <div
+        className="component addMemberForm"
+        id="addMemberComponent"
+        title="Enter new household member"
+        onClick={toggleForm}
+      >
         {/* <h2>New Member</h2> */}
-        <form target=''>
-          <input autoFocus={true} type='text' className='newMemberInput' id='addMemberInput' placeholder='First name'
-            onKeyPress={ handleKeyPress } onChange={ handleInputChange } onClick={e => e.stopPropagation()} />
-          <input type='button' className='newMemberInput' id='addMemberSubmit' value='Add member' onClick={(e) => this.props.onCreate({ name: this.state.inputValue })} />
+        <form target="">
+          <input
+            autoFocus={true}
+            type="text"
+            className="newMemberInput"
+            id="addMemberInput"
+            placeholder="First name"
+            onKeyPress={handleKeyPress}
+            onChange={handleInputChange}
+            onClick={(e) => e.stopPropagation()}
+          />
+          <input
+            type="button"
+            className="newMemberInput"
+            id="addMemberSubmit"
+            value="Add member"
+            onClick={(e) =>
+              this.props.onCreate({ name: this.state.inputValue })
+            }
+          />
         </form>
       </div>
     ) : (
-      <div className='component formHidden' title='Tap to enter new household member' onClick={ toggleForm }>
+      <div
+        className="component formHidden"
+        title="Tap to enter new household member"
+        onClick={toggleForm}
+      >
         <span>+</span>
       </div>
     );
@@ -69,7 +94,6 @@ class AddMember extends React.Component {
 }
 
 export default AddMember;
-
 
 // : (
 //   <div className='newMemberInput component'>
