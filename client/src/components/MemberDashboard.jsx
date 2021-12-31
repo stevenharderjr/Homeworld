@@ -1,44 +1,45 @@
 import React from 'react';
 import TaskList from './TaskList.jsx';
-import './css/MemberDashboard.css';
+import './MemberDashboard.css';
 
 class MemberDashboard extends React.Component {
   constructor(props) {
     super(props);
+
+    this.handleClick = this.handleClick.bind(this);
+    this.showNav = this.showNav.bind(this);
+    this.hideNav = this.hideNav.bind(this);
+
     this.state = {
-      titleText: `${this.props.member.name}'s Tasks`
+      nav: false
     };
 
     // this.handleClick.bind(this);
   }
 
-  showNavText() {
+  showNav() {
     this.setState({
-      titleText: '< Dashboard'
+      nav: true
     });
   }
 
-  showTitleText() {
+  hideNav() {
     this.setState({
-      titleText: `${this.props.member.name}'s Tasks`
+      nav: false
     })
   }
 
-  returnToMainDashboard() {
-    this.props.goHome();
-  }
+  // returnToMainDashboard() {
+  //   this.props.goHome();
+  // }
 
   handleClick(task) {
     console.log(`${task.name} clicked`);
     this.props.onClick(task);
   }
 
-  componentDidMount() {
-    this.showTitleText();
-  }
-
   render() {
-    console.log(this.props.workload);
+    const { household, member, workload, onUpdate, onDelete, goHome } = this.props;
     const taskNames = this.props.member.assigned.slice();
     const tasks = taskNames.map(name => {
       const index = this.props.workload.nameLookup[name];
@@ -49,11 +50,11 @@ class MemberDashboard extends React.Component {
 
     return (
       <div id='dashboard'>
-        <div className='navTitleBar' title='return to household overview'  onMouseEnter={() => this.showNavText()} onMouseLeave={() => this.showTitleText()} onClick={this.props.goHome}>
-          <h1>{this.state.titleText}</h1>
+        <div className='navTitleBar' title='Return to household dashboard'  onMouseEnter={this.showNav} onMouseLeave={this.hideNav} onClick={goHome}>
+          <h1>{this.state.nav ? '< Dashboard' : `${this.props.member.name}'s Tasks`}</h1>
         </div>
         <div className='tasks'>
-          <TaskList tasks={tasks} member={this.props.member} household={this.props.household} workload={this.props.workload} onUpdate={this.props.onUpdate} onDelete={this.props.onDelete} />
+          <TaskList tasks={tasks} member={member} household={household} workload={workload} onUpdate={onUpdate} onDelete={onDelete} />
         </div>
       </div>
     );

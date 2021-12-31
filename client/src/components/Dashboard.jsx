@@ -1,16 +1,14 @@
 import React from 'react';
 import MemberColumn from './MemberColumn.jsx';
 import AddMember from './AddMember.jsx';
-import './css/Dashboard.css';
+import './Dashboard.css';
 
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      members: this.props.household.members,
-      addMemberDisplay: 'none',
-      plusDisplay: 'block'
-    };
+
+    this.addMember = this.addMember.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick(member) {
@@ -22,24 +20,22 @@ class Dashboard extends React.Component {
     }
   }
 
-  // addMember(name) {
-  //   const existingMembers = this.state.members;
-  //   if (!existingMembers.includes(name)) {
-  //     console.log('Adding new member', name);
-  //     const updatedMembers = this.state.members.slice();
-  //     updatedMembers.push(name);
-  //     this.setState({
-  //       members: updatedMembers
-  //     });
-  //     this.props.onCreate({ name: name });
-  //   }
-  // }
-  // componentDidMount() {
-
-  // }
+  addMember(name) {
+    const existingMembers = this.state.members;
+    if (!existingMembers.includes(name)) {
+      console.log('Adding new member', name);
+      const updatedMembers = this.state.members.slice();
+      updatedMembers.push(name);
+      this.setState({
+        members: updatedMembers
+      });
+      this.props.onCreate({ name: name });
+    }
+  }
 
   render() {
-    const { members } = this.state;
+    const { addMember, handleClick } = this;
+    const { members } = this.props.household;
     let key = 0;
 
     return (
@@ -48,16 +44,24 @@ class Dashboard extends React.Component {
           <h1>{`Harder Household`}</h1>
         </div>
         {(members.length > 1) ? (
-          <div className='members'>
-            {members.map(member => (<MemberColumn key={`dashboard${member._id}`} workload={this.props.workload} household={this.props.household} member={member} tasks={member.assigned} onClick={e => this.handleClick(e)} onUpdate={this.props.onUpdate} onDelete={this.props.onDelete} />))}
-            <h2 className='component' style={{ display: this.state.plusDisplay }} onClick={() => this.setState({addMemberDisplay: 'block', plusDisplay: 'none'})}>+</h2>
-            <div style={{ display: this.state.addMemberDisplay }}>
-              <AddMember household={this.props.household} onCreate={(member) => {
-                this.setState({ addMemberDisplay: 'none', plusDisplay: 'block' })
-                this.props.onCreate(member)}} />
-            </div>
+          <div className='members columnContainer'>
+            {members.map(member => (
+              <MemberColumn
+                key={`dashboard${key++}`}
+                workload={this.props.workload}
+                household={this.props.household}
+                member={member}
+                tasks={member.assigned}
+                onClick={handleClick}
+                onUpdate={this.props.onUpdate}
+                onDelete={this.props.onDelete}
+              />
+            ))}
+            <AddMember household={this.props.household} onSubmit={addMember} />
           </div>
-        ) : null}
+        ) : (
+          <AddMember household={this.props.household} onSubmit={addMember} />
+        )}
       </div>
     );
   }

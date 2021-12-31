@@ -1,0 +1,8 @@
+.message-modal {
+  position: absolute;
+  margin: auto;
+  width: fit-content;
+  height: fit-content;
+  background-color: #3333;
+  color: #ccc;
+}

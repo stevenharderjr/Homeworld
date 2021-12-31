@@ -1,10 +1,16 @@
 import React from 'react';
-import Checkbox from './Checkbox.jsx';
-import './css/Task.css';
+import Checkbox from './shared/Checkbox.jsx';
+import './Task.css';
 
 class Task extends React.Component {
   constructor(props) {
     super(props);
+
+    this.updateTask = this.updateTask.bind(this);
+    this.deleteTask = this.deleteTask.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+
     this.state = {
       inputValue: this.props.task.name,
       task: this.props.task
@@ -12,7 +18,7 @@ class Task extends React.Component {
   }
 
   handleKeyPress(e) {
-    (e.key === 'Enter') && this.update(this.props.task);
+    (e.key === 'Enter') && this.updateTask(this.props.task);
   }
 
   handleInputChange(e) {
@@ -21,9 +27,10 @@ class Task extends React.Component {
     });
   }
 
-  delete(task) {
+  deleteTask() {
+    const { task, onDelete } = this.props;
     console.log(`Delete ${task}`);
-    this.props.onDelete({ name: task });
+    onDelete({ name: task });
   }
 
   // create(task) {
@@ -32,24 +39,33 @@ class Task extends React.Component {
   //   }
   // }
 
-  update(task) {
-    if (task.name !== this.state.inputValue) {
-      console.log(`Change ${task.name} to ${this.state.inputValue}`);
-      this.props.onUpdate(task);
+  updateTask() {
+    const { task, onUpdate } = this.props;
+    console.log('Before update', task);
+    const { inputValue } = this.state;
+    if (task.name !== inputValue) {
+      console.log(`Change ${task.name} to ${inputValue}`);
+      Object.assign(task, { name: inputValue });
+      console.log('After update', task);
+      onUpdate(task);
     } else {
-      console.log('Nothing to update');
+      alert('Task name has not changed. Nothing to update.');
     }
   }
 
   render() {
-    // console.log(this.props.minWidth);
-    const {task} = this.props;
+    const { inputValue } = this.state;
+    const { task, minWidth } = this.props;
+    const { updateTask, deleteTask, handleKeyPress, handleInputChange } = this;
+
     return (
-      <div className='task' onKeyPress={(e) => this.handleKeyPress(e)}>
+      <div className='taskRow' onKeyPress={handleKeyPress}>
         <Checkbox checked={false}/>
-        <input type='text' className='taskName' size={this.props.minWidth} value={this.state.inputValue} onChange={(e) => this.handleInputChange(e)} />
-        <button className='taskMenuButton' title={(task.name === this.state.inputValue) ? 'no change' : `change "${task.name}" to "${this.state.inputValue}"`} onClick={() => this.update(task)}>update</button>
-        <button className='taskMenuButton' title={`remove "${task.name}"`} onClick={() => this.delete(task)}>remove</button>
+        <input type='text' className='taskName' title={inputValue} size={minWidth} value={inputValue} onChange={handleInputChange} />
+        <div className='buttonGroup'>
+          <input type='button' value='update' className='taskMenuButton' title={(task.name === inputValue) ? 'no change' : `change "${task.name}" to "${inputValue}"`} onClick={updateTask} />
+          <input type='button' value='remove' className='taskMenuButton' title={`remove "${task.name}"`} onClick={deleteTask} />
+        </div>
       </div>
     );
   }

@@ -1,22 +1,25 @@
 import React from 'react';
-import './css/Checkbox.css';
+import './Checkbox.css';
 
 class Checkbox extends React.Component {
   constructor(props) {
     super(props);
+
+    this.toggle = this.toggle.bind(this);
+
     this.state = {
       checked: this.props.checked
     }
   }
 
-  toggleCheckbox() {
-    const toggle = !this.state.checked;
-    this.setState({ checked: toggle });
+  toggle() {
+    const toggled = !this.state.checked;
+    this.setState({ checked: toggled });
   }
 
   render() {
     return (
-      <div className='Checkbox' onClick={() => this.toggleCheckbox()}>
+      <div className='Checkbox' onClick={this.toggle}>
         <div className={`Checkmark ${(this.state.checked) ? 'Checked' : 'Unchecked'}`}></div>
       </div>
     );

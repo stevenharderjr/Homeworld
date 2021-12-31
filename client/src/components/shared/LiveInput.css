@@ -1,0 +1,8 @@
+.textInput {
+  margin: 4px;
+}
+
+label {
+  text-transform: capitalize;
+  margin: 4px 4px 0 4px;
+}

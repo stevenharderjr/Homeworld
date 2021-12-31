@@ -1,5 +1,5 @@
 import React from 'react';
-import './css/MemberColumn.css';
+import './MemberColumn.css';
 
 class MemberColumn extends React.Component {
   constructor(props) {
@@ -30,9 +30,9 @@ class MemberColumn extends React.Component {
 
     let key = 0;
     return (
-      <div className='component' onClick={(e) => this.handleClick(e)}>
+      <div className='component MemberColumn' title={`Edit ${member.name}'s tasks`} onClick={(e) => this.handleClick(e)}>
         <h2>{member.name}</h2>
-        {(tasks.length) ? tasks.map(task => (<a key={`memberColumn${task._id || key++}`}>{task.name}</a>)) : <span>Assign tasks</span>}
+        {(tasks.length) ? tasks.map(task => (<a key={`memberColumn${key++}`}>{task.name}</a>)) : <span>Assign tasks</span>}
       </div>
     );
   }

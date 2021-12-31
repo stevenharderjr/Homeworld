@@ -1,0 +1,27 @@
+.newMemberInput {
+  display: flex;
+  width: 8em;
+  margin: auto;
+}
+
+.formHidden {
+  box-sizing: border-box;
+  display: flex;
+  flex-flow: column nowrap;
+  /* justify-content: center; */
+  min-width: 11em;
+  height: 6em;
+  text-align: center;
+}
+
+.formHidden span {
+  font-size: 2em;
+}
+
+.addMemberForm {
+  display: flex;
+  flex-flow: column nowrap;
+  min-width: 8em;
+  min-height: 6em;
+  height: 6em;
+}

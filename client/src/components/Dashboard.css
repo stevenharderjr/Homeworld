@@ -1,0 +1,27 @@
+#dashboard {
+  min-height: 100%;
+}
+
+.member {
+  display: flex;
+  flex-flow: column wrap;
+  /* flex: 2 2 10%; */
+  width: max-content;
+  max-width: 50%;
+  color: black;
+  justify-content: flex-start;
+}
+
+.columnContainer {
+  display: flex;
+  flex-flow: row wrap;
+  min-width: 100%;
+  overflow: hidden;
+  min-height: 25%;
+  max-height: 100%;
+  height: max-content;
+}
+
+.member:hover {
+  cursor: default;
+}

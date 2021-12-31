@@ -1,15 +1,25 @@
 import React from 'react';
-import './css/AddMember.css';
+import './AddMember.css';
 
 class AddMember extends React.Component {
   constructor(props) {
     super(props);
 
     this.userInput = React.createRef();
+    this.toggleForm = this.toggleForm.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
 
     this.state = {
+      form: false,
       inputValue: ''
     };
+  }
+
+  toggleForm() {
+    const { form } = this.state;
+    this.setState({ form: !form });
   }
 
   handleInputChange(e) {
@@ -28,22 +38,31 @@ class AddMember extends React.Component {
     e.preventDefault();
 
     if (this.state.inputValue.length) {
-      this.props.onCreate({ name: this.state.inputValue });
+      this.props.addMember(this.state.inputValue);
     }
   }
 
   componentDidMount() {
-    this.userInput.current.focus();
+    if (this.state.form && this.state.inputValue === '') {
+      this.userInput.current.focus();
+    }
   }
 
   render() {
-    return (
-      <div className='component' id='addMemberComponent'>
-        <h2>Add Household Member</h2>
+    const { toggleForm, handleKeyPress, handleInputChange, userInput } = this;
+
+    return this.state.form ? (
+      <div className='component addMemberForm' id='addMemberComponent' title='Enter new household member' onClick={ toggleForm }>
+        {/* <h2>New Member</h2> */}
         <form target=''>
-          <input type='text' className='input' id='addMemberInput' placeholder='First name' ref={this.userInput} onKeyPress={(e) => this.handleKeyPress(e)} onChange={(e) => this.handleInputChange(e)} />
-          <input type='button' className='submit' id='addMemberSubmit' value='submit' onClick={(e) => this.props.onCreate({ name: this.state.inputValue })} />
+          <input autoFocus={true} type='text' className='newMemberInput' id='addMemberInput' placeholder='First name'
+            onKeyPress={ handleKeyPress } onChange={ handleInputChange } onClick={e => e.stopPropagation()} />
+          <input type='button' className='newMemberInput' id='addMemberSubmit' value='Add member' onClick={(e) => this.props.onCreate({ name: this.state.inputValue })} />
         </form>
+      </div>
+    ) : (
+      <div className='component formHidden' title='Tap to enter new household member' onClick={ toggleForm }>
+        <span>+</span>
       </div>
     );
   }

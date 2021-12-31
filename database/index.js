@@ -1,35 +1,50 @@
 // require('./dataStructures.jsx');
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/homeworld', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb://localhost/homeworld', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
-db.once('open', function() {
+db.once('open', function () {
   console.log('MongoDB connected');
 });
 
 const rewardSchema = new mongoose.Schema({
-  household: { type: mongoose.Schema.Types.ObjectId, ref: 'Household', index: true },
+  household: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Household',
+    index: true,
+  },
   mame: String,
   description: String,
   unit: String, // e.g., payment, priviledge
   quantity: Number, // e.g., amount, duration
-  requirements: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Task' }]
+  requirements: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Task' }],
 });
 const Reward = db.model('Reward', rewardSchema);
 
 const taskSchema = new mongoose.Schema({
-  household: { type: mongoose.Schema.Types.ObjectId, ref: 'Household', index: true },
+  household: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Household',
+    index: true,
+  },
   name: String,
   instructions: Array,
   duration: Number,
-  rewards: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Reward' }] // rewardId
+  rewards: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Reward' }], // rewardId
   // history: Array
 });
 const Task = db.model('Task', taskSchema);
 
 const memberSchema = new mongoose.Schema({
-  household: { type: mongoose.Schema.Types.ObjectId, ref: 'Household', index: true },
+  household: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Household',
+    index: true,
+  },
   name: String,
   username: String,
   email: String,
@@ -41,7 +56,7 @@ const memberSchema = new mongoose.Schema({
   assignedTasks: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Task' }],
   completedTasks: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Task' }],
   availableRewards: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Reward' }],
-  earnedRewards: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Reward' }]
+  earnedRewards: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Reward' }],
   // birthdate: Date,
   // SSN: String,
   // insuranceID: String,
@@ -52,12 +67,12 @@ const Member = db.model('Member', memberSchema);
 
 const householdSchema = new mongoose.Schema({
   name: String,
-  email: {type: String, index: true },
+  email: { type: String, index: true },
   salt: String,
   hash: String,
   members: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Member' }],
   tasks: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Task' }],
-  rewards: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Reward' }]
+  rewards: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Reward' }],
 });
 
 const Household = db.model('Household', householdSchema);
@@ -67,7 +82,7 @@ module.exports = {
   Household,
   Member,
   Task,
-  Reward
+  Reward,
 };
 
 // window.taskIds = new Set();
