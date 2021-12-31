@@ -1,0 +1,24 @@
+/* #addMemberComponent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+} */
+
+/* form {
+  margin: auto;
+} */
+
+.input, .submit {
+  box-sizing: border-box;
+  display: inline-block;
+  height: 2em;
+  width: 12em;
+  padding: 0;
+  margin: 0;
+  border: 1px solid grey;
+}
+
+/* .submit {
+  box-sizing: border-box;
+  border: 1px solid grey;
+} */

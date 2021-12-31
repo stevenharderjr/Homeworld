@@ -1,0 +1,19 @@
+.navTitleBar {
+  box-sizing: border-box;
+  left: 0;
+  top: 0;
+  color: white;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  padding-left: 1.5em;
+  background-color: #000b;
+  position: sticky;
+  display: flex;
+  user-select: none;
+}
+
+/* .navTitleBar:hover {
+  color: black;
+  background-color: #0003;
+  cursor: default;
+} */

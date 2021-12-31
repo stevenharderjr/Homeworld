@@ -1,0 +1,23 @@
+.addTask {
+  font-size: x-large;
+  color: #000c;
+  padding: .5em 1em;
+}
+
+.addTask:hover {
+  background-color: #fff5;
+}
+
+.blankBox {
+  margin: .5em 0 .5em 1.5em;
+  box-sizing: border-box;
+  height: 1em;
+  width: 1em;
+  background-color: #0000;
+  border: 2px solid #0000;
+  align-self: center;
+}
+
+.columnHeading {
+  margin-left: 1.5em;
+}

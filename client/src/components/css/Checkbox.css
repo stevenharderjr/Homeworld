@@ -1,0 +1,27 @@
+.Checkbox {
+  margin: .5em 0 .5em 1.5em;
+  box-sizing: border-box;
+  height: 1em;
+  width: 1em;
+  background-color: #0000;
+  border: 2px solid #000a;
+  align-self: center;
+}
+
+.Checkmark {
+  height: 100%;
+  width: 100%;
+  background-color: grey;
+}
+
+.Checkbox:hover {
+  background-color: #ffff;
+}
+
+.Checked {
+  background-color: #000a;
+}
+
+.Unchecked {
+ background-color: #fff5;
+}
